@@ -5,6 +5,8 @@ import { BlogHeader } from "@/components/blog-header"
 import { getBlogPost } from "@/lib/blog-data"
 import { Card } from "@/components/ui/card"
 
+export const runtime = 'edge';
+
 interface BlogPostPageProps {
   params: {
     slug: string
