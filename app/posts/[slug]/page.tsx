@@ -2,13 +2,21 @@ import { notFound } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, Calendar, Clock, Tag } from "lucide-react"
 import { BlogHeader } from "@/components/blog-header"
-import { getBlogPost } from "@/lib/blog-data"
+import { getBlogPost, getAllBlogPosts } from "@/lib/blog-data"
 import { Card } from "@/components/ui/card"
 
 interface BlogPostPageProps {
   params: {
     slug: string
   }
+}
+
+export async function generateStaticParams() {
+  const posts = getAllBlogPosts()
+  
+  return posts.map((post) => ({
+    slug: post.slug,
+  }))
 }
 
 export default function BlogPostPage({ params }: BlogPostPageProps) {
