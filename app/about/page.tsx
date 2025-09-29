@@ -1,5 +1,6 @@
 import { BlogHeader } from "@/components/blog-header"
 import { Marquee } from "@/components/ui/marquee"
+import { TimelineItem } from "@/components/ui/timeline-item"
 import { cn } from "@/lib/utils"
 
 // Skills data with categories and descriptions
@@ -68,6 +69,38 @@ const skills = [
 
 const firstRow = skills.slice(0, Math.ceil(skills.length / 2))
 const secondRow = skills.slice(Math.ceil(skills.length / 2))
+
+// Experience data matching the provided timeline
+const experiences = [
+  {
+    year: "2024",
+    title: "Senior Full Stack Developer",
+    company: "TechCorp Inc.",
+    description: "Leading development of scalable web applications using modern technologies. Mentoring junior developers and architecting solutions for complex business requirements.",
+    skills: ["React", "Next.js", "TypeScript", "Node.js", "PostgreSQL"]
+  },
+  {
+    year: "2022",
+    title: "Frontend Developer", 
+    company: "StartupXYZ",
+    description: "Built responsive user interfaces and improved application performance by 40%. Collaborated with design teams to implement pixel-perfect designs.",
+    skills: ["React", "JavaScript", "Tailwind CSS", "Figma"]
+  },
+  {
+    year: "2020",
+    title: "Junior Developer",
+    company: "WebSolutions Ltd.",
+    description: "Started my professional journey building websites and learning modern development practices. Contributed to multiple client projects and gained experience in full-stack development.",
+    skills: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"]
+  },
+  {
+    year: "2019",
+    title: "Computer Science Graduate",
+    company: "University of Technology",
+    description: "Completed my degree with focus on software engineering and web technologies. Built strong foundation in computer science fundamentals and programming principles.",
+    skills: []
+  }
+]
 
 const SkillCard = ({
   name,
@@ -147,6 +180,24 @@ export default function AboutPage() {
                 </Marquee>
                 <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-background"></div>
                 <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-background"></div>
+              </div>
+            </div>
+
+            <div className="pt-16">
+              <h2 className="text-2xl font-semibold text-foreground mb-8">Experience</h2>
+              <div className="relative">
+                {experiences.map((experience, index) => (
+                  <TimelineItem
+                    key={`${experience.year}-${experience.title}`}
+                    year={experience.year}
+                    title={experience.title}
+                    company={experience.company}
+                    description={experience.description}
+                    skills={experience.skills}
+                    isLast={index === experiences.length - 1}
+                    index={index}
+                  />
+                ))}
               </div>
             </div>
           </div>
