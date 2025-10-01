@@ -8,10 +8,10 @@ export function BlogHeader() {
         <div className="flex items-center justify-between">
           <div>
             <Link href="/" className="block group">
-              <h1 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-200">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent group-hover:from-accent group-hover:to-secondary transition-all duration-300">
                 Alex Chen
               </h1>
-              <p className="text-muted-foreground mt-1 group-hover:text-foreground transition-colors duration-200">
+              <p className="text-muted-foreground mt-1 group-hover:text-primary transition-colors duration-200">
                 Frontend Developer
               </p>
             </Link>
@@ -21,17 +21,17 @@ export function BlogHeader() {
             <nav className="flex items-center gap-8">
               <Link 
                 href="/about" 
-                className="text-muted-foreground hover:text-foreground transition-all duration-200 relative group"
+                className="text-muted-foreground hover:text-primary transition-all duration-200 relative group font-medium"
               >
                 <span className="relative z-10">About</span>
-                <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></span>
+                <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-primary to-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></span>
               </Link>
               <Link 
                 href="/posts" 
-                className="text-muted-foreground hover:text-foreground transition-all duration-200 relative group"
+                className="text-muted-foreground hover:text-primary transition-all duration-200 relative group font-medium"
               >
                 <span className="relative z-10">Posts</span>
-                <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></span>
+                <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-primary to-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></span>
               </Link>
             </nav>
             <ThemeToggle />

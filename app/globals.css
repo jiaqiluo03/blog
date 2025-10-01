@@ -4,76 +4,76 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated theme to match the light cream/white design inspiration */
+  /* Energetic Coral & Teal Color Scheme - Enhanced vibrancy */
   --background: oklch(0.98 0.01 240); /* Light cream/white */
-  --foreground: oklch(0.15 0.02 240); /* Dark navy text */
-  --card: oklch(0.96 0.01 240);
-  --card-foreground: oklch(0.15 0.02 240);
-  --popover: oklch(0.96 0.01 240);
-  --popover-foreground: oklch(0.15 0.02 240);
-  --primary: oklch(0.4 0.15 200); /* Darker blue for light mode */
+  --foreground: oklch(0.20 0.02 240); /* Dark text with slight warmth */
+  --card: oklch(0.97 0.01 240);
+  --card-foreground: oklch(0.20 0.02 240);
+  --popover: oklch(0.97 0.01 240);
+  --popover-foreground: oklch(0.20 0.02 240);
+  --primary: oklch(0.70 0.15 180); /* Vibrant Teal - Main brand color */
   --primary-foreground: oklch(0.98 0.01 240);
-  --secondary: oklch(0.92 0.01 240);
-  --secondary-foreground: oklch(0.2 0.02 240);
+  --secondary: oklch(0.68 0.18 35); /* Warm Coral - CTAs and emphasis */
+  --secondary-foreground: oklch(0.98 0.01 240);
   --muted: oklch(0.94 0.01 240);
-  --muted-foreground: oklch(0.5 0.01 240);
-  --accent: oklch(0.9 0.01 240);
-  --accent-foreground: oklch(0.15 0.02 240);
+  --muted-foreground: oklch(0.45 0.02 240);
+  --accent: oklch(0.55 0.22 285); /* Deep Purple - Highlights */
+  --accent-foreground: oklch(0.98 0.01 240);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.98 0.01 240);
-  --border: oklch(0.88 0.01 240);
+  --border: oklch(0.88 0.02 180); /* Subtle teal tint */
   --input: oklch(0.94 0.01 240);
-  --ring: oklch(0.4 0.15 200);
-  --chart-1: oklch(0.4 0.15 200);
-  --chart-2: oklch(0.35 0.12 180);
-  --chart-3: oklch(0.45 0.18 220);
-  --chart-4: oklch(0.3 0.1 160);
-  --chart-5: oklch(0.5 0.2 260);
+  --ring: oklch(0.70 0.15 180); /* Teal focus ring */
+  --chart-1: oklch(0.70 0.15 180); /* Teal */
+  --chart-2: oklch(0.68 0.18 35); /* Coral */
+  --chart-3: oklch(0.55 0.22 285); /* Purple */
+  --chart-4: oklch(0.65 0.16 165); /* Emerald */
+  --chart-5: oklch(0.72 0.16 70); /* Amber */
   --radius: 0.5rem;
-  --sidebar: oklch(0.96 0.01 240);
-  --sidebar-foreground: oklch(0.15 0.02 240);
-  --sidebar-primary: oklch(0.4 0.15 200);
+  --sidebar: oklch(0.97 0.01 240);
+  --sidebar-foreground: oklch(0.20 0.02 240);
+  --sidebar-primary: oklch(0.70 0.15 180);
   --sidebar-primary-foreground: oklch(0.98 0.01 240);
-  --sidebar-accent: oklch(0.92 0.01 240);
-  --sidebar-accent-foreground: oklch(0.15 0.02 240);
-  --sidebar-border: oklch(0.88 0.01 240);
-  --sidebar-ring: oklch(0.4 0.15 200);
+  --sidebar-accent: oklch(0.94 0.01 240);
+  --sidebar-accent-foreground: oklch(0.20 0.02 240);
+  --sidebar-border: oklch(0.88 0.02 180);
+  --sidebar-ring: oklch(0.70 0.15 180);
 }
 
 .dark {
-  /* Dark mode theme colors (original design) */
+  /* Dark mode - Energetic Coral & Teal (adjusted for dark backgrounds) */
   --background: oklch(0.12 0.02 240); /* Dark navy blue */
-  --foreground: oklch(0.85 0.01 240); /* Light blue-white */
-  --card: oklch(0.15 0.02 240);
-  --card-foreground: oklch(0.85 0.01 240);
-  --popover: oklch(0.15 0.02 240);
-  --popover-foreground: oklch(0.85 0.01 240);
-  --primary: oklch(0.6 0.15 200); /* Soft blue accent */
-  --primary-foreground: oklch(0.95 0.01 240);
-  --secondary: oklch(0.2 0.02 240);
-  --secondary-foreground: oklch(0.8 0.01 240);
-  --muted: oklch(0.18 0.02 240);
-  --muted-foreground: oklch(0.6 0.01 240);
-  --accent: oklch(0.25 0.02 240);
-  --accent-foreground: oklch(0.85 0.01 240);
+  --foreground: oklch(0.90 0.01 240); /* Bright light text */
+  --card: oklch(0.16 0.02 240);
+  --card-foreground: oklch(0.90 0.01 240);
+  --popover: oklch(0.16 0.02 240);
+  --popover-foreground: oklch(0.90 0.01 240);
+  --primary: oklch(0.75 0.15 180); /* Bright Teal for dark mode */
+  --primary-foreground: oklch(0.12 0.02 240);
+  --secondary: oklch(0.70 0.18 35); /* Bright Coral for dark mode */
+  --secondary-foreground: oklch(0.12 0.02 240);
+  --muted: oklch(0.20 0.02 240);
+  --muted-foreground: oklch(0.60 0.01 240);
+  --accent: oklch(0.65 0.22 285); /* Brighter Purple for dark mode */
+  --accent-foreground: oklch(0.95 0.01 240);
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.25 0.02 240);
-  --input: oklch(0.2 0.02 240);
-  --ring: oklch(0.6 0.15 200);
-  --chart-1: oklch(0.6 0.15 200);
-  --chart-2: oklch(0.65 0.12 180);
-  --chart-3: oklch(0.55 0.18 220);
-  --chart-4: oklch(0.7 0.1 160);
-  --chart-5: oklch(0.5 0.2 260);
-  --sidebar: oklch(0.15 0.02 240);
-  --sidebar-foreground: oklch(0.85 0.01 240);
-  --sidebar-primary: oklch(0.6 0.15 200);
-  --sidebar-primary-foreground: oklch(0.95 0.01 240);
-  --sidebar-accent: oklch(0.2 0.02 240);
-  --sidebar-accent-foreground: oklch(0.85 0.01 240);
-  --sidebar-border: oklch(0.25 0.02 240);
-  --sidebar-ring: oklch(0.6 0.15 200);
+  --border: oklch(0.25 0.04 180); /* Teal-tinted border */
+  --input: oklch(0.20 0.02 240);
+  --ring: oklch(0.75 0.15 180); /* Bright Teal focus ring */
+  --chart-1: oklch(0.75 0.15 180); /* Teal */
+  --chart-2: oklch(0.70 0.18 35); /* Coral */
+  --chart-3: oklch(0.65 0.22 285); /* Purple */
+  --chart-4: oklch(0.68 0.16 165); /* Emerald */
+  --chart-5: oklch(0.75 0.16 70); /* Amber */
+  --sidebar: oklch(0.16 0.02 240);
+  --sidebar-foreground: oklch(0.90 0.01 240);
+  --sidebar-primary: oklch(0.75 0.15 180);
+  --sidebar-primary-foreground: oklch(0.12 0.02 240);
+  --sidebar-accent: oklch(0.20 0.02 240);
+  --sidebar-accent-foreground: oklch(0.90 0.01 240);
+  --sidebar-border: oklch(0.25 0.04 180);
+  --sidebar-ring: oklch(0.75 0.15 180);
 }
 
 @theme inline {
