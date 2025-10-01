@@ -5,6 +5,7 @@ import { Music, Play, Pause, SkipForward, SkipBack, Volume2, VolumeX } from "luc
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
+import { Slider } from "@/components/ui/slider"
 
 interface Song {
   title: string
@@ -37,10 +38,19 @@ export function MusicPlayer() {
   const [isCardOpen, setIsCardOpen] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
+  const [currentTime, setCurrentTime] = useState(0)
+  const [duration, setDuration] = useState(0)
   const audioRef = useRef<HTMLAudioElement>(null)
   const playerRef = useRef<HTMLDivElement>(null)
 
   const currentSong = playlist[currentSongIndex]
+
+  // Format time helper
+  const formatTime = (time: number) => {
+    const minutes = Math.floor(time / 60)
+    const seconds = Math.floor(time % 60)
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`
+  }
 
   // Auto-play when component mounts (will work after user interaction due to browser policies)
   useEffect(() => {
@@ -61,13 +71,27 @@ export function MusicPlayer() {
     // Try to auto-play
     playAudio()
 
+    // Time tracking
+    const handleTimeUpdate = () => {
+      setCurrentTime(audio.currentTime)
+    }
+
+    const handleLoadedMetadata = () => {
+      setDuration(audio.duration)
+    }
+
     // Auto-advance to next song
     const handleEnded = () => {
       playNext()
     }
+
+    audio.addEventListener("timeupdate", handleTimeUpdate)
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata)
     audio.addEventListener("ended", handleEnded)
 
     return () => {
+      audio.removeEventListener("timeupdate", handleTimeUpdate)
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata)
       audio.removeEventListener("ended", handleEnded)
     }
   }, [])
@@ -96,10 +120,21 @@ export function MusicPlayer() {
     if (!audio) return
 
     audio.src = currentSong.url
+    setCurrentTime(0)
     if (isPlaying) {
       audio.play().catch(console.error)
     }
   }, [currentSongIndex])
+
+  // Handle progress bar changes
+  const handleProgressChange = (value: number[]) => {
+    const audio = audioRef.current
+    if (!audio) return
+    
+    const newTime = value[0]
+    audio.currentTime = newTime
+    setCurrentTime(newTime)
+  }
 
   const togglePlay = async () => {
     const audio = audioRef.current
@@ -153,8 +188,8 @@ export function MusicPlayer() {
             size="lg"
             className={cn(
               "h-14 w-14 rounded-full shadow-lg transition-all duration-300",
-              "bg-primary hover:bg-primary/90 text-primary-foreground",
-              "border-2 border-primary/20 hover:scale-110",
+              "bg-teal-500 hover:bg-teal-600 text-white",
+              "border-2 border-teal-200 hover:scale-110",
               isPlaying && "animate-pulse"
             )}
           >
@@ -165,11 +200,11 @@ export function MusicPlayer() {
             )}
           </Button>
 
-          {/* Player Card - Toggles on button click */}
+          {/* Player Card - Clean minimalist design */}
           <Card
             className={cn(
-              "absolute bottom-0 right-0 mb-16 mr-0 w-80 transition-all duration-300 shadow-2xl",
-              "border-2 border-primary/20 backdrop-blur-sm",
+              "absolute bottom-0 right-0 mb-16 mr-0 w-96 transition-all duration-300 shadow-2xl",
+              "bg-white border border-gray-200 rounded-xl",
               isCardOpen
                 ? "opacity-100 translate-y-0 pointer-events-auto"
                 : "opacity-0 translate-y-4 pointer-events-none"
@@ -177,24 +212,33 @@ export function MusicPlayer() {
           >
             <CardContent className="p-6">
               {/* Song Info */}
-              <div className="mb-4 text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-3">
-                  <Music className="h-8 w-8 text-primary" />
+              <div className="mb-6 text-center">
+                <h3 className="font-semibold text-lg text-gray-800 truncate">{currentSong.title}</h3>
+                <p className="text-sm text-gray-500 truncate">{currentSong.artist}</p>
+              </div>
+
+              {/* Progress Bar */}
+              <div className="mb-6">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm text-gray-400">{formatTime(currentTime)}</span>
+                  <span className="text-sm text-gray-400">{formatTime(duration)}</span>
                 </div>
-                <h3 className="font-semibold text-lg truncate">{currentSong.title}</h3>
-                <p className="text-sm text-muted-foreground truncate">{currentSong.artist}</p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Track {currentSongIndex + 1} of {playlist.length}
-                </p>
+                <Slider
+                  value={[currentTime]}
+                  max={duration || 100}
+                  step={1}
+                  onValueChange={handleProgressChange}
+                  className="w-full"
+                />
               </div>
 
               {/* Controls */}
-              <div className="flex items-center justify-center gap-2 mb-4">
+              <div className="flex items-center justify-center gap-4">
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={playPrevious}
-                  className="h-10 w-10 hover:bg-primary/10 hover:text-primary"
+                  className="h-10 w-10 text-gray-400 hover:text-gray-600 hover:bg-gray-100"
                 >
                   <SkipBack className="h-5 w-5" />
                 </Button>
@@ -202,7 +246,7 @@ export function MusicPlayer() {
                 <Button
                   onClick={togglePlay}
                   size="icon"
-                  className="h-12 w-12 rounded-full bg-primary hover:bg-primary/90"
+                  className="h-14 w-14 rounded-full bg-teal-500 hover:bg-teal-600 text-white shadow-lg"
                 >
                   {isPlaying ? (
                     <Pause className="h-6 w-6" />
@@ -215,31 +259,15 @@ export function MusicPlayer() {
                   variant="ghost"
                   size="icon"
                   onClick={playNext}
-                  className="h-10 w-10 hover:bg-primary/10 hover:text-primary"
+                  className="h-10 w-10 text-gray-400 hover:text-gray-600 hover:bg-gray-100"
                 >
                   <SkipForward className="h-5 w-5" />
                 </Button>
               </div>
 
-              {/* Volume Control */}
-              <div className="flex items-center justify-center">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={toggleMute}
-                  className="h-8 w-8 hover:bg-primary/10 hover:text-primary"
-                >
-                  {isMuted ? (
-                    <VolumeX className="h-4 w-4" />
-                  ) : (
-                    <Volume2 className="h-4 w-4" />
-                  )}
-                </Button>
-              </div>
-
               {/* First Visit Notice */}
               {!hasInteracted && (
-                <div className="mt-4 text-xs text-center text-muted-foreground border-t pt-3">
+                <div className="mt-4 text-xs text-center text-gray-400 border-t border-gray-100 pt-3">
                   Click play to start the music
                 </div>
               )}
