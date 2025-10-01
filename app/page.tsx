@@ -38,7 +38,7 @@ export default function HomePage() {
           <div className="flex items-center justify-between text-sm text-muted-foreground">
             <p>© 2025 Alex Chen. All rights reserved.</p>
             <div className="flex items-center gap-6">
-              <a href="https://twitter.com" className="hover:text-primary transition-colors font-medium">
+              <a href="https://x.com/jkpual" className="hover:text-primary transition-colors font-medium">
                 Twitter
               </a>
               <a href="https://github.com" className="hover:text-primary transition-colors font-medium">

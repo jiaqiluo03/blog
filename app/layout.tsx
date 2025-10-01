@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import { ThemeProvider } from "@/components/theme-provider"
 import { PageTransitionWrapper } from "@/components/page-transition-wrapper"
+import { MusicPlayer } from "@/components/music-player"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ export default function RootLayout({
           <PageTransitionWrapper>
             <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
           </PageTransitionWrapper>
+          <MusicPlayer />
         </ThemeProvider>
         <Analytics />
       </body>
