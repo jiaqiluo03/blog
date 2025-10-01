@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react"
 import { BlogHeader } from "@/components/blog-header"
-import { BlogPostsWithFocus } from "@/components/blog-post-card-with-focus"
+import { BlogPostsHero } from "@/components/blog-post-card-hero"
 import { Pagination } from "@/components/pagination"
 import { getAllBlogPosts } from "@/lib/blog-data"
 
@@ -38,7 +38,7 @@ export default function PostsPage() {
           </div>
         </div>
 
-        <BlogPostsWithFocus posts={currentPosts} />
+        <BlogPostsHero posts={currentPosts} />
 
         <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
       </main>

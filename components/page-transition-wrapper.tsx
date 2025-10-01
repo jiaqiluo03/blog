@@ -1,8 +1,7 @@
 "use client"
 
-import { motion, AnimatePresence } from "framer-motion"
 import { usePathname } from "next/navigation"
-import { ReactNode, useLayoutEffect, useRef, useState } from "react"
+import { ReactNode, useEffect, useState } from "react"
 
 interface PageTransitionWrapperProps {
   children: ReactNode
@@ -10,64 +9,21 @@ interface PageTransitionWrapperProps {
 
 export function PageTransitionWrapper({ children }: PageTransitionWrapperProps) {
   const pathname = usePathname()
-  const [displayPath, setDisplayPath] = useState(pathname)
-  const prevPathnameRef = useRef(pathname)
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
-  useLayoutEffect(() => {
-    if (pathname !== displayPath) {
-      setDisplayPath(pathname)
-    }
-  }, [pathname, displayPath])
-
-  const getDirection = () => {
-    const prev = prevPathnameRef.current
-    const current = pathname
-
-    if (prev === "/about" && current === "/posts") {
-      return 1 // about -> posts
-    } else if (prev === "/posts" && current === "/about") {
-      return -1 // posts -> about
-    }
-    
-    prevPathnameRef.current = current
-    return current === "/posts" ? 1 : current === "/about" ? -1 : 0
-  }
-
-  const direction = getDirection()
-
-  const variants = {
-    initial: {
-      x: direction > 0 ? "100%" : direction < 0 ? "-100%" : 0,
-      opacity: 0,
-    },
-    animate: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: {
-      x: direction > 0 ? "-100%" : direction < 0 ? "100%" : 0,
-      opacity: 0,
-    },
-  }
+  useEffect(() => {
+    setIsTransitioning(true)
+    const timer = setTimeout(() => setIsTransitioning(false), 100)
+    return () => clearTimeout(timer)
+  }, [pathname])
 
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      <motion.div
-        key={pathname}
-        variants={variants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        transition={{
-          type: "spring",
-          stiffness: 300,
-          damping: 30,
-          mass: 0.8,
-        }}
-      >
-        {children}
-      </motion.div>
-    </AnimatePresence>
+    <div 
+      className={`transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
+      key={pathname}
+    >
+      {children}
+    </div>
   )
 }
 

@@ -9,6 +9,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // Static export enabled - CSS-based transitions work with static export
   output: 'export',
 }
 
