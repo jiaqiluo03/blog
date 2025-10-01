@@ -14,7 +14,7 @@ type ThemeProviderProps = {
 type ThemeProviderState = {
   theme: Theme
   setTheme: (theme: Theme) => void
-  toggleTheme: () => void
+  toggleTheme: (event?: React.MouseEvent) => void
 }
 
 const initialState: ThemeProviderState = {
@@ -34,8 +34,48 @@ export function ThemeProvider({ children, defaultTheme = "light", ...props }: Th
     root.classList.add(theme)
   }, [theme])
 
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark")
+  const toggleTheme = (event?: React.MouseEvent) => {
+    const newTheme = theme === "dark" ? "light" : "dark"
+
+    // Check if View Transitions API is supported
+    if (!document.startViewTransition || !event) {
+      setTheme(newTheme)
+      return
+    }
+
+    // Get the click position
+    const x = event.clientX
+    const y = event.clientY
+    
+    // Calculate the radius needed to cover the entire viewport
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    )
+
+    // Start the view transition
+    const transition = document.startViewTransition(() => {
+      setTheme(newTheme)
+    })
+
+    // Animate the circular reveal
+    transition.ready.then(() => {
+      const clipPath = [
+        `circle(0px at ${x}px ${y}px)`,
+        `circle(${endRadius}px at ${x}px ${y}px)`,
+      ]
+
+      document.documentElement.animate(
+        {
+          clipPath,
+        },
+        {
+          duration: 500,
+          easing: "ease-in-out",
+          pseudoElement: "::view-transition-new(root)",
+        }
+      )
+    })
   }
 
   const value = {
