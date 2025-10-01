@@ -5,6 +5,7 @@ import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import { ThemeProvider } from "@/components/theme-provider"
+import { PageTransitionWrapper } from "@/components/page-transition-wrapper"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -20,9 +21,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="light">
-      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
+      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased overflow-x-hidden`}>
         <ThemeProvider defaultTheme="light">
-          <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+          <PageTransitionWrapper>
+            <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+          </PageTransitionWrapper>
         </ThemeProvider>
         <Analytics />
       </body>
